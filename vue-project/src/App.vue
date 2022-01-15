@@ -1,19 +1,22 @@
 <template>
   <div class="container">
    <Header title="Track"/>
-   <Tasks @delete-task="deleteTask" :tasks="tasks"/>
+   <AddTask @add-task="addTask"/>
+   <Tasks @toggle-reminder="toggleReminder" @delete-task="deleteTask" :tasks="tasks"/>
   </div>
 </template>
 
 <script>
 import Header from './components/Header.vue'
 import Tasks from './components/Tasks.vue'
+import AddTask from './components/AddTask.vue'
 
 export default {
   name: "App",
   components:{
     Header,
-    Tasks
+    Tasks,
+    AddTask
   },
   data(){
     return{
@@ -21,11 +24,18 @@ export default {
     }
   },
   methods:{
+    addTask(task){
+this.tasks=[...this.tasks,task]
+    },
     deleteTask(id){
       if(confirm('Vi soglasni udalit')){
 
         this.tasks=this.tasks.filter((task)=>task.id !== id)
       }
+    },
+    toggleReminder(id){
+     this.tasks=this.tasks.map((task)=> task.id=== id ? {...task,reminder: !task.reminder}:
+     task)
     }
   },
   created(){
