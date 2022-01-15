@@ -22,7 +22,10 @@ export default {
   },
   methods:{
     deleteTask(id){
-      console.log('task',id)
+      if(confirm('Vi soglasni udalit')){
+
+        this.tasks=this.tasks.filter((task)=>task.id !== id)
+      }
     }
   },
   created(){
